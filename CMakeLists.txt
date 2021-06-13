@@ -3,8 +3,11 @@ cmake_minimum_required(VERSION 2.8.3)
 project(hdl_graph_slam)
 
 # Can we use C++17 in indigo?
+EXECUTE_PROCESS(COMMAND uname -m COMMAND tr -d '\n' OUTPUT_VARIABLE ARCHITECTURE)
+if(${ARCHITECTURE} STREQUAL "x86_64")
 add_definitions(-msse -msse2 -msse3 -msse4 -msse4.1 -msse4.2)
 set(CMAKE_CXX_FLAGS "-msse -msse2 -msse3 -msse4 -msse4.1 -msse4.2")
+endif()
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 # pcl 1.7 causes a segfault when it is built with debug mode
